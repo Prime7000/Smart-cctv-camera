@@ -1,0 +1,212 @@
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700&amp;family=Roboto+Mono%3Awght%40400&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>Lunafire CCTV - Live View</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #2563eb;--secondary-color: #1e293b;--accent-color: #10b981;--background-color: #0f172a;--surface-color: #1e293b;--text-primary: #f8fafc;--text-secondary: #94a3b8;--border-color: #334155;}
+    body {
+      font-family: "Inter", "Noto Sans", sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-primary);
+    }
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL'0,
+        'wght'400,
+        'GRAD'0,
+        'opsz'24
+    }
+    .nav-link-active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;}
+    .btn-secondary {
+      background-color: var(--surface-color);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover {
+      background-color: #334155;}
+    .btn-icon {
+      padding: 0.5rem;
+    }
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    .status-online {
+      background-color: #22c55e;}
+    .status-offline {
+      background-color: #ef4444;}
+    .status-recording {
+      background-color: var(--accent-color);
+    }
+    .motion-detected {
+      border: 2px solid var(--accent-color);
+      box-shadow: 0 0 8px var(--accent-color);
+    }.camera-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .camera-list::-webkit-scrollbar-track {
+      background: var(--surface-color);
+      border-radius: 3px;
+    }
+    .camera-list::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+    .camera-list::-webkit-scrollbar-thumb:hover {
+      background: #475569;}
+  </style>
+</head>
+<body class="bg-[var(--background-color)] text-[var(--text-primary)]">
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--border-color)] bg-[var(--surface-color)] px-4 md:px-6 py-3 shadow-md">
+<div class="flex items-center gap-3">
+<div class="size-7 text-[var(--primary-color)]">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-[var(--text-primary)] text-lg font-semibold leading-tight tracking-[-0.015em]">Lunafire CCTV</h1>
+</div>
+<nav class="hidden md:flex items-center gap-4 lg:gap-6">
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] text-sm font-medium transition-colors" href="/">Home</a>
+<!-- <a class="nav-link-active text-sm font-medium" href="#">Live View</a> -->
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] text-sm font-medium transition-colors" href="/records">Records</a>
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] text-sm font-medium transition-colors" href="/settings">Settings</a>
+</nav>
+<div class="flex items-center gap-3">
+<button aria-label="Notifications" class="btn btn-icon btn-secondary">
+<span class="material-symbols-outlined text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border-2 border-transparent hover:border-[var(--primary-color)] transition-all" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDN5VA41TAlUWa9VMY6KuVFMmj5bWueMKMAZTkyzMsyFfP9iT7gs6d_RhUDaoqTe4IMUW4uUFPYkEGAgK6eUrMZY9JMjLlN_uArII78AidZKvduq81TohTD4eOKKjUSsx1Ogg2BlyxHPKc67Ib_L7PdPaMFCvO4Rp_XPYLN7ONInvh3L7bpFS95aWhXPUosz4vWU1q6qCNJbjZHFZLr3fTm6PU5t2XDbqqsyM4BV_2icd4dKndj3BJJ1nHO1oUW0ba0c_B7f34TTu9b");'></div>
+</div>
+</header>
+<main class="flex flex-1 flex-col md:flex-row overflow-hidden">
+<div class="flex-1 bg-black flex items-center justify-center p-2 md:p-4 relative @container">
+<img alt="Live video stream placeholder - replace with actual video component" class="max-h-full max-w-full object-contain motion-detected" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaZSeZco54_Ds0MWt_gCK-KSmes1YNhJhEHd65BcGYhdffeARMFANby5keyp6D3PhTEYRg8q0cfLEpYVWbpzyrqZDyGkuJH-9D90irmKKWT3_wGBLqaKhzBNjjyprgpqWSz0CR0ng0H1bUYU7kIJQ8aYIhqyoHk1booqLnIIV-hMtHI6AAAp7tHtDxSqCNkvUkrYkXKMRaj1vsZrpfvKCbc_qOFocS3psScsJnlKcsHlMHSHwlnWm-1niP2RQxSeWsOUB2BWbFS08R"/>
+<div class="absolute top-2 left-2 md:top-4 md:left-4 bg-[rgba(0,0,0,0.5)] p-2 rounded-md">
+<h2 class="text-lg font-semibold">Front Entrance</h2>
+<div class="flex items-center text-sm">
+<span class="status-indicator status-recording"></span> Recording
+            </div>
+</div>
+<div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 flex gap-2">
+<button class="btn btn-icon bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.7)] text-white">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+<button class="btn btn-icon bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.7)] text-white">
+<span class="material-symbols-outlined">photo_camera</span>
+</button>
+</div>
+</div>
+<aside class="w-full md:w-80 lg:w-96 bg-[var(--surface-color)] border-l border-[var(--border-color)] p-4 flex flex-col">
+<div class="mb-4">
+<h3 class="text-lg font-semibold mb-2">Cameras</h3>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]">search</span>
+<input class="w-full bg-[#273244] border border-[var(--border-color)] rounded-md py-2 pl-10 pr-3 text-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] placeholder:text-[var(--text-secondary)]" placeholder="Search cameras..." type="search"/>
+</div>
+</div>
+<div class="camera-list flex-1 overflow-y-auto space-y-2 mb-4 pr-1">
+<div class="p-3 rounded-md bg-[#273244] border border-[var(--primary-color)] cursor-pointer hover:bg-[#334155]">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-medium text-sm">Front Entrance</h4>
+<span class="text-xs text-[var(--accent-color)] font-semibold">LIVE</span>
+</div>
+<div class="flex items-center text-xs text-[var(--text-secondary)]">
+<span class="status-indicator status-recording"></span> Recording
+              </div>
+</div>
+<div class="p-3 rounded-md bg-[var(--surface-color)] border border-transparent hover:border-[var(--border-color)] cursor-pointer hover:bg-[#273244]">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-medium text-sm">Backyard West</h4>
+</div>
+<div class="flex items-center text-xs text-[var(--text-secondary)]">
+<span class="status-indicator status-online"></span> Online
+              </div>
+</div>
+<div class="p-3 rounded-md bg-[var(--surface-color)] border border-transparent hover:border-[var(--border-color)] cursor-pointer hover:bg-[#273244] opacity-60">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-medium text-sm">Living Room</h4>
+</div>
+<div class="flex items-center text-xs text-red-400">
+<span class="status-indicator status-offline"></span> Offline
+              </div>
+</div>
+<div class="p-3 rounded-md bg-[var(--surface-color)] border border-transparent hover:border-[var(--border-color)] cursor-pointer hover:bg-[#273244]">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-medium text-sm">Garage Interior</h4>
+</div>
+<div class="flex items-center text-xs text-[var(--text-secondary)]">
+<span class="status-indicator status-online"></span> Online
+              </div>
+</div>
+<div class="p-3 rounded-md bg-[var(--surface-color)] border border-transparent hover:border-[var(--border-color)] cursor-pointer hover:bg-[#273244]">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-medium text-sm">Driveway Cam 1</h4>
+</div>
+<div class="flex items-center text-xs text-[var(--text-secondary)]">
+<span class="status-indicator status-online"></span> Online
+              </div>
+</div>
+</div>
+<div class="border-t border-[var(--border-color)] pt-4">
+<h3 class="text-lg font-semibold mb-3">Controls</h3>
+<div class="space-y-3">
+<button class="btn btn-primary w-full">
+<span class="material-symbols-outlined mr-2">play_arrow</span>
+                Start All Streams
+              </button>
+<button class="btn btn-secondary w-full">
+<span class="material-symbols-outlined mr-2">stop</span>
+                Stop All Streams
+              </button>
+<div class="flex items-center justify-between p-2 bg-[#273244] rounded-md">
+<label class="text-sm flex items-center" for="motionDetection">
+<span class="material-symbols-outlined mr-2 text-[var(--text-secondary)]">sensors</span>
+                  Motion Detection
+                </label>
+<input checked="" class="form-checkbox h-5 w-5 text-[var(--primary-color)] bg-[var(--surface-color)] border-[var(--border-color)] rounded focus:ring-[var(--primary-color)]" id="motionDetection" type="checkbox"/>
+</div>
+<button class="btn btn-secondary w-full text-[var(--accent-color)] border-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-white">
+<span class="material-symbols-outlined mr-2">emergency_recording</span>
+                Record Now (30s)
+              </button>
+</div>
+<div class="mt-4 text-xs text-center text-[var(--text-secondary)]">
+              Showing 5 of 12 cameras.
+              <a class="text-[var(--primary-color)] hover:underline" href="#">Manage Cameras</a>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</div>
+
+</body></html>

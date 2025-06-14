@@ -1,0 +1,197 @@
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Be+Vietnam+Pro%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>Lunafire CCTV - Recordings</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #0c7ff2; 
+        --secondary-color: #60758a;
+        --background-color: #f0f2f5;
+        --text-primary: #111418;
+        --text-secondary: #60758a;
+        --border-color: #e5e7eb; 
+      }
+      body {
+        font-family: "Be Vietnam Pro", "Noto Sans", sans-serif;
+      }
+      .nav-item {
+        @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium leading-normal;
+      }
+      .nav-item.active {
+        @apply bg-[var(--primary-color)] text-white;
+      }
+      .nav-item:not(.active) {
+        @apply text-[var(--text-primary)] hover:bg-[var(--background-color)];
+      }
+      .nav-item svg {
+        @apply transition-colors;
+      }
+      .nav-item.active svg {
+        @apply text-white;
+      }
+      .nav-item:not(.active) svg {
+         @apply text-[var(--text-primary)];
+      }
+      .video-card {
+        @apply flex flex-col gap-3 pb-3 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 bg-white;
+      }
+      .video-thumbnail {
+        @apply w-full bg-center bg-no-repeat aspect-video bg-cover cursor-pointer;
+      }
+      .video-info {
+        @apply px-3;
+      }
+      .video-title {
+        @apply text-[var(--text-primary)] text-base font-medium leading-normal;
+      }
+      .video-timestamp {
+        @apply text-[var(--text-secondary)] text-sm font-normal leading-normal;
+      }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1">
+<aside class="w-72 bg-white p-6 border-r border-[var(--border-color)] flex flex-col gap-8 sticky top-0 h-screen">
+<div class="flex items-center gap-2">
+<svg fill="none" height="32" viewBox="0 0 256 256" width="32" xmlns="http://www.w3.org/2000/svg">
+<circle cx="128" cy="128" fill="#0C7FF2" r="120"></circle>
+<path d="M166.402 100.399C177.202 100.399 186.6 105.199 186.6 114.799C186.6 124.399 177.202 130.599 166.402 130.599C158.402 130.599 152.6 126.999 149.4 122.599L128 149.199L106.6 122.599C103.4 126.999 97.6021 130.599 89.6021 130.599C81.6021 130.599 70.8021 124.399 70.8021 114.799C70.8021 105.199 80.2021 100.399 89.6021 100.399C97.6021 100.399 103.4 103.799 106.6 108.399L128 81.7988L149.4 108.399C152.6 103.799 158.402 100.399 166.402 100.399Z" fill="white"></path>
+<path d="M128.001 173.399C114.601 173.399 102.601 169.399 101.201 168.199C99.2008 166.399 102.001 163.199 104.001 164.199C105.001 164.799 114.401 168.399 128.001 168.399C141.601 168.399 151.001 164.799 152.001 164.199C154.001 163.199 156.801 166.399 154.801 168.199C153.401 169.399 141.401 173.399 128.001 173.399Z" fill="white"></path>
+</svg>
+<h1 class="text-[var(--text-primary)] text-xl font-bold leading-normal">Lunafire</h1>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="nav-item" href="/">
+<div data-icon="House" data-size="24px" data-weight="regular">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path>
+</svg>
+</div>
+<p>Home</p>
+</a>
+<a class="nav-item" href="live_preview">
+<div data-icon="Video" data-size="24px" data-weight="regular">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M164.44,105.34l-48-32A8,8,0,0,0,104,80v64a8,8,0,0,0,12.44,6.66l48-32a8,8,0,0,0,0-13.32ZM120,129.05V95l25.58,17ZM216,40H40A16,16,0,0,0,24,56V168a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,128H40V56H216V168Zm16,40a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16H224A8,8,0,0,1,232,208Z"></path>
+</svg>
+</div>
+<p>Live</p>
+</a>
+<a class="nav-item active" href="/records">
+<div data-icon="VideoCamera" data-size="24px" data-weight="fill">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M192,72V184a16,16,0,0,1-16,16H32a16,16,0,0,1-16-16V72A16,16,0,0,1,32,56H176A16,16,0,0,1,192,72Zm58,.25a8.23,8.23,0,0,0-6.63,1.22L209.78,95.86A4,4,0,0,0,208,99.19v57.62a4,4,0,0,0,1.78,3.33l33.78,22.52a8,8,0,0,0,8.58.19,8.33,8.33,0,0,0,3.86-7.17V80A8,8,0,0,0,250,72.25Z"></path>
+</svg>
+</div>
+<p>Recordings</p>
+</a>
+<a class="nav-item" href="/settings">
+<div data-icon="Gear" data-size="24px" data-weight="regular">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path>
+</svg>
+</div>
+<p>Settings</p>
+</a>
+<a class="nav-item" href="#">
+<div data-icon="Question" data-size="24px" data-weight="regular">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path>
+</svg>
+</div>
+<p>Help</p>
+</a>
+</nav>
+</aside>
+<main class="flex-1 p-8">
+<header class="mb-8">
+<h1 class="text-[var(--text-primary)] tracking-tight text-4xl font-bold leading-tight">Recordings</h1>
+<p class="text-[var(--text-secondary)] text-base font-normal leading-normal mt-1">Browse, preview, and manage stored recordings.</p>
+</header>
+<div class="mb-8">
+<label class="relative flex items-center w-full max-w-lg">
+<div class="absolute left-0 pl-4 text-[var(--text-secondary)]" data-icon="MagnifyingGlass" data-size="20px" data-weight="regular">
+<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+</svg>
+</div>
+<input class="form-input w-full pl-12 pr-4 py-3 text-base rounded-xl border border-[var(--border-color)] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent placeholder:text-[var(--text-secondary)] text-[var(--text-primary)]" placeholder="Search recordings by camera, date, or time" type="search" value=""/>
+</label>
+</div>
+<section class="mb-10">
+<h2 class="text-[var(--text-primary)] text-2xl font-bold leading-tight tracking-[-0.01em] mb-6">Today</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATRHxGYIbPFoKbGed1kdgQOx7Ah4Lwv2_eIHZpLaS0QV2MAOqdutjF-gXUx5qcfdJ3lbEYiN4zigzZfT031ByIZZ-kR8UiB43ZN_WRkJdzb95YHCYpleYSAHiJZ7F_ufFhMObons6CfUw4kPLXSS6PSitsOfjzzRME1Wq8wCdN0RLSdm4QC78_KZA1Ui1LE3slRrxZdF_FV85aVEMftyBYUbcaI5M69Yf4OuWudJ83qqzz1DjmzxHeswe-nI_NhNDVd0jRtwfqAVKD");'></div>
+<div class="video-info">
+<p class="video-title">Front Door</p>
+<p class="video-timestamp">10:00 AM - 10:15 AM</p>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA55ExnroMgyJuEPXxOQpdwE-S5E-Wrru7VMzw0c9idyV9sPMvP4Qvl8RElVDVn29NrT0U6UDaH6rHhN2A7ZaSdIVPSFOuk0-yLkhQw5MYNehgrcpWteFFxDEgUKeGwubCuCnYSIp017pFTAc_1eqQ-0L2D4t3xeJkybclSCRn_Vql2-1A6fGDFGIBoshn3m44g01IHNiq-xOxTghLDIQruxD5sKYDbgzEEp8beVC70QpJ7aGqT6-HWrsvEj8uG_NqJy-ole7mZ5tAt");'></div>
+<div class="video-info">
+<p class="video-title">Backyard</p>
+<p class="video-timestamp">10:15 AM - 10:30 AM</p>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDgKq4QIQ5TLPSvn4ZsEcLA9oZR29k9XUqJi4bn09UIG4044GXRRPij1yinLURMwqj9gmUfPxY9n0mcMn3HJ49g7Hf0R2CAPc1j4IcLGV8aou1IdaSzvyo0sIEtqY3RsZnBWAZoxqtliiOmhmsV_8EVAmfOXFTo0LB1qcuaMi63A20yOFKya7xWfDrRvQex2tqrBJWnIY4KrhcHLghLxlUsl7c5OCBbaQ7LncgZLYmlV00hAQfUJHnyw174qY9wUnDkzpA-9OpekvUw");'></div>
+<div class="video-info">
+<p class="video-title">Garage</p>
+<p class="video-timestamp">10:30 AM - 10:45 AM</p>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8eeaScy0qT9r8noPzm8ouDpnbdJabGqZoWzcEJNPGHCSFmRZGEQAoN9nWeqJTjx7_gkZI4ylxnTGX5p5gYL3uDdGyq2DcyFUad10bEc-sixhwZoXQIpwVJ--hNePYa4IRLGR3vqJgBUMVBgg9OC09KB9Qgid77MhSpUYzcvPojcqdcgCyMpR-IJ2QYJL08sp__HkV6oG9vFvUxWeDZeap15r_HFfmdWBmJGETzc6fxXGk_sljyKAsBVt4GDybE5yusgt4UsG7wInK");'></div>
+<div class="video-info">
+<p class="video-title">Living Room</p>
+<p class="video-timestamp">10:45 AM - 11:00 AM</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-[var(--text-primary)] text-2xl font-bold leading-tight tracking-[-0.01em] mb-6">Yesterday</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDxi5NFMvoh0bF8Hxt45YPmE3NvKazd-nuc-LgzJAtx0FQz4AgW2xYd5yXIKJqtl_1Xh-NVQye11cQv4YppLQ6eFWU5zSh--Ux1XsRiluz2pRMSlqNwUsgdbSCV3EHXVmB_TjC1SDzBmqNvVQK2tOZi9w9HA5RCLI855z57D-W2cP4id-vDUA8NlvMw0m5xQ5IRVaitJ0Di7PHAx0zDZ5vglz4Z8ISVgrV_5ElFk4xwEVGp05wo0mx3egc9dE12dUO3W9mG7vmTzsD4");'></div>
+<div class="video-info">
+<p class="video-title">Front Door</p>
+<p class="video-timestamp">10:00 AM - 10:15 AM</p>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcb6SxTkycXGMpI_C-jxHUqn5q9JjNS-v1zLV01C-tGsJZYxTg8-FD7vyTw87IscZRfo8mbnm0-u0SBS1eHlNdzeVEMgXieUHWhjbnTO4hhI55xzm5RpfVrX6LIm1YREDVl_CauRnWsVQlT32IqYRGpWZ_ab48GX0enceezVeZ-BVnYO-QOzcwitzT_YzFiocApeEKg2XKWvidEHkuKRrnl4KPNsEz8wZSl0ElbBedLhSuJ041gF7FY21Ozm4JRJ2xKgzTvM8ufD0Y");'></div>
+<div class="video-info">
+<p class="video-title">Backyard</p>
+<p class="video-timestamp">10:15 AM - 10:30 AM</p>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCg4esdYdSUG0w-ik7COBhETIh9Ty-oKFgHJn77F26oSHlaP5AsTHxAbyV9i9fRJH0oUadKWJ5SsecOzr2NrWFvTPFudRhWxywKq_mVETgUhUKkf4DgVxDZhF6vFLSirZkbYsbdcd7Ky3M5aWDE50gEDkSf61TNvrIc6vIuUcKyjJmEW4DTsyypSg6tBq45oORLiXRIvwskOWqclLbEo4QdtnB1tKoTTPXigDzuywLTW5x6RkKOkZ2VntVxnpitgBZYS6R6w4GE7Cej");'></div>
+<div class="video-info">
+<p class="video-title">Garage</p>
+<p class="video-timestamp">10:30 AM - 10:45 AM</p>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2vpRsL3S-rht3WZevUV2mfRwKjL8iaG374MvvFxYd3uESBkS0-dnp6XR4Z6MQoNHMhPAUw7RuScuumVnmaw0aaE99de1Ya65rojqj0tac8oIYwVzeCkjLLoQbQaD_TskP_o2Vu9F2484gwoKlACyhq_6wDnPd3h5--xTYwE1GZU9wM8JEWLzH8oRuEg1OZ7NZ3S8QOWPsIqpCb-_EZ3Xsnb4KGR1G9J7p8gIhYGJdiXGC_Ty_V0vjdzqoUxpT5SqQ5YmwYHLrVD9S");'></div>
+<div class="video-info">
+<p class="video-title">Living Room</p>
+<p class="video-timestamp">10:45 AM - 11:00 AM</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+</div>
+
+</body></html>

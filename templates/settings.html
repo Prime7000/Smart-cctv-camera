@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link crossorigin href="https://fonts.gstatic.com/" rel="preconnect" />
+  <link
+    as="style"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Be+Vietnam+Pro:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+    onload="this.rel='stylesheet'"
+    rel="stylesheet"
+  />
+  <title>Lunafire CCTV Settings</title>
+  <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style type="text/tailwindcss">
+    :root {
+      --primary-color: #0c7ff2;
+      --secondary-text: #60758a;
+      --primary-text: #111418;
+      --border-color: #dbe0e6;
+      --background-light: #f0f2f5;
+      --background-white: #ffffff;
+    }
+    body { font-family: "Be Vietnam Pro", "Noto Sans", sans-serif; }
+    .sidebar-link {
+      @apply flex items-center gap-3 px-4 py-3 rounded-lg text-[var(--primary-text)] hover:bg-[var(--background-light)] transition-colors duration-200;
+    }
+    .sidebar-link.active { @apply bg-[var(--primary-color)] text-white; }
+    .sidebar-link.active svg { @apply text-white; }
+    .sidebar-link svg { @apply text-[var(--primary-text)]; }
+    .tab-link {
+      @apply flex flex-col items-center justify-center border-b-[3px] pb-[13px] pt-4 text-sm font-bold tracking-[0.015em] transition-colors duration-200 cursor-pointer;
+    }
+    .tab-link.active {
+      @apply border-b-[var(--primary-color)] text-[var(--primary-color)];
+    }
+    .tab-link:not(.active) {
+      @apply border-b-transparent text-[var(--secondary-text)] hover:text-[var(--primary-text)] hover:border-b-[var(--border-color)];
+    }
+    .form-input-label {
+      @apply text-[var(--primary-text)] text-sm font-medium leading-normal pb-2;
+    }
+    .form-input-field {
+      @apply form-input w-full rounded-lg border border-[var(--border-color)] bg-[var(--background-white)] px-4 py-3 text-sm text-[var(--primary-text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)];
+    }
+    .form-select-field {
+      @apply form-select w-full rounded-lg border border-[var(--border-color)] bg-[var(--background-white)] px-4 py-3 text-sm text-[var(--primary-text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)];
+    }
+    .section-title { @apply text-[var(--primary-text)] text-xl font-semibold px-4 pb-3 pt-6; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="flex min-h-screen">
+    <!-- Sidebar omitted for brevity, use existing sidebar code -->
+    <main class="flex-1 p-8 overflow-y-auto">
+      <!-- Breadcrumb -->
+      <div class="mb-6">
+        <a class="text-[var(--secondary-text)] hover:underline" href="/">Home</a>
+        <span class="text-[var(--secondary-text)] mx-2">/</span>
+        <span class="text-[var(--primary-text)]">Camera Settings</span>
+      </div>
+
+      <!-- Header -->
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-[var(--primary-text)]">Camera Settings</h2>
+        <p class="text-base text-[var(--secondary-text)] mt-2">
+          Fine-tune camera behavior, detection, recording, and alerts.
+        </p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="border-b border-[var(--border-color)] mb-6">
+        <div class="flex space-x-8 px-1">
+          <div class="tab-link active" data-tab="general">General</div>
+          <div class="tab-link" data-tab="motion">Motion Detection</div>
+          <div class="tab-link" data-tab="recording">Recording</div>
+          <div class="tab-link" data-tab="alerts">Alerts</div>
+        </div>
+      </div>
+
+      <!-- Tab Content -->
+      <form id="settings-form">
+        <!-- General Tab -->
+        <div class="tab-content" id="tab-general">
+          <h3 class="section-title">Camera Information</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+            <div><label class="form-input-label" for="camera-name">Camera Name</label>
+              <input id="camera-name" class="form-input-field" type="text" placeholder="Front Door Cam" /></div>
+            <div><label class="form-input-label" for="camera-type">Camera Type</label>
+              <select id="camera-type" class="form-select-field">
+                <option value="local">Local Camera</option>
+                <option value="ip">IP Camera</option>
+              </select></div>
+            <div id="ip-section" class="hidden">
+              <label class="form-input-label" for="ip-address">IP Address</label>
+              <input id="ip-address" class="form-input-field" type="text" placeholder="192.168.1.100" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Motion Detection Tab -->
+        <div class="tab-content hidden" id="tab-motion">
+          <h3 class="section-title">Motion Detection Settings</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+            <div class="flex items-center space-x-3">
+              <input id="motion-enable" type="checkbox" class="form-checkbox h-5 w-5 text-[var(--primary-color)]" />
+              <label for="motion-enable" class="text-[var(--primary-text)] font-medium">Enable Motion Detection</label>
+            </div>
+            <div>
+              <label class="form-input-label" for="motion-threshold">Threshold: <span id="threshold-value">50</span>%</label>
+              <input id="motion-threshold" type="range" min="0" max="100" value="50" class="w-full" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Recording Tab -->
+        <div class="tab-content hidden" id="tab-recording">
+          <h3 class="section-title">Recording Options</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+            <div>
+              <label class="form-input-label" for="record-mode">Mode</label>
+              <select id="record-mode" class="form-select-field">
+                <option value="disabled">Disabled</option>
+                <option value="continuous">Continuous</option>
+                <option value="motion">Motion-triggered</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-input-label" for="segment-length">Segment Length (mins)</label>
+              <input id="segment-length" type="number" min="1" max="60" value="5" class="form-input-field" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerts Tab -->
+        <div class="tab-content hidden" id="tab-alerts">
+          <h3 class="section-title">Notification Settings</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+            <div>
+              <label class="form-input-label" for="notify-method">Method</label>
+              <select id="notify-method" class="form-select-field">
+                <option value="none">None</option>
+                <option value="gmail">Gmail</option>
+                <option value="telegram">Telegram</option>
+              </select>
+            </div>
+            <!-- Gmail Section -->
+            <div id="gmail-section" class="hidden space-y-4">
+              <div>
+                <label class="form-input-label" for="gmail-sender">Sender Email</label>
+                <input id="gmail-sender" class="form-input-field" type="email" placeholder="you@gmail.com" />
+              </div>
+              <div>
+                <label class="form-input-label" for="gmail-password">App Password</label>
+                <input id="gmail-password" type="password" class="w-full rounded-lg border border-[var(--border-color)] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]" />
+              </div>
+              <div>
+                <label class="form-input-label" for="gmail-recipient">Recipient Email(s)</label>
+                <input id="gmail-recipient" class="form-input-field" type="text" placeholder="recipient1@gmail.com, recipient2@gmail.com" />
+              </div>
+              <button id="test-gmail" type="button" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-lg">Test Gmail</button>
+            </div>
+            <!-- Telegram Section -->
+            <div id="telegram-section" class="hidden space-y-4">
+              <div>
+                <label class="form-input-label" for="telegram-key">Bot API Key</label>
+                <input id="telegram-key" class="form-input-field" type="text" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" />
+              </div>
+              <div>
+                <label class="form-input-label" for="telegram-chat">Chat/Group ID</label>
+                <input id="telegram-chat" class="form-input-field" type="text" placeholder="123456789" />
+              </div>
+              <button id="test-telegram" type="button" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-lg">Test Telegram</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="flex justify-end mt-10 px-4">
+          <button type="submit" class="bg-[var(--primary-color)] text-white px-6 py-3 rounded-lg font-bold">Save Settings</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <!-- JS for tabs and dynamic sections -->
+  <script>
+    document.querySelectorAll('.tab-link').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // activate tab link
+        document.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        // show content
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
+      });
+    });
+
+    // camera type toggle
+    const cameraType = document.getElementById('camera-type');
+    cameraType.addEventListener('change', () => {
+      document.getElementById('ip-section').classList.toggle('hidden', cameraType.value !== 'ip');
+    });
+
+    // notification method toggle
+    const notifyMethod = document.getElementById('notify-method');
+    notifyMethod.addEventListener('change', () => {
+      document.getElementById('gmail-section').classList.toggle('hidden', notifyMethod.value !== 'gmail');
+      document.getElementById('telegram-section').classList.toggle('hidden', notifyMethod.value !== 'telegram');
+    });
+
+    // threshold display
+    const threshold = document.getElementById('motion-threshold');
+    const threshVal = document.getElementById('threshold-value');
+    threshold.addEventListener('input', () => { threshVal.textContent = threshold.value; });
+
+    // form submit
+    document.getElementById('settings-form').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Settings saved successfully!');
+    });
+
+    // test buttons
+    document.getElementById('test-gmail').addEventListener('click', () => {
+      alert('Gmail test sent!');
+    });
+    document.getElementById('test-telegram').addEventListener('click', () => {
+      alert('Telegram test sent!');
+    });
+  </script>
+</body>
+</html>
